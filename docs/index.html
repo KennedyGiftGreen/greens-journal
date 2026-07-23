@@ -8,8 +8,18 @@
     <meta name="description" content="A private trading calendar and performance journal." />
     <link rel="icon" href="./favicon.svg" />
     <title>Greens Journal — Trading Calendar Dashboard</title>
-    <script type="module" crossorigin src="/greens-journal/assets/index-5Hj63g__.js"></script>
-    <link rel="stylesheet" crossorigin href="/greens-journal/assets/index-DnUext7y.css">
+    <script>
+      try {
+        const savedTheme = localStorage.getItem("greens-journal-theme");
+        document.documentElement.dataset.theme = savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      } catch {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+    <script type="module" crossorigin src="/greens-journal/assets/index-00zAejac.js"></script>
+    <link rel="stylesheet" crossorigin href="/greens-journal/assets/index-iU5Knupf.css">
   </head>
   <body><div id="root"></div></body>
 </html>
