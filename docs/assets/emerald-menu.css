@@ -1,0 +1,232 @@
+:root {
+  --violet: #059669;
+  --violet-soft: #d1fae5;
+  --lime: #6ee7b7;
+}
+
+.logo-mark {
+  display: none !important;
+}
+
+.auth-shell {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(5, 150, 105, .2), transparent 31%),
+    radial-gradient(circle at 88% 86%, rgba(16, 185, 129, .14), transparent 29%),
+    #07130f;
+}
+
+.auth-brand strong,
+.app-logo strong {
+  color: #34d399;
+}
+
+.auth-submit:hover,
+.log-button:hover {
+  background: #047857;
+}
+
+.auth-submit,
+.log-button {
+  box-shadow: 0 9px 20px rgba(5, 150, 105, .22);
+}
+
+.auth-form input:focus,
+.log-tools input:focus,
+.trade-modal input:focus,
+.trade-modal select:focus,
+.trade-modal textarea:focus,
+.capital-modal input:focus,
+.capital-modal select:focus {
+  box-shadow: 0 0 0 4px rgba(5, 150, 105, .11);
+}
+
+.sidebar nav button.active {
+  background: #064e3b;
+}
+
+.sidebar nav button.active > span {
+  color: #6ee7b7;
+}
+
+.sidebar nav button:hover:not(:disabled) {
+  background: #12362c;
+}
+
+.grade-bars b {
+  background: linear-gradient(180deg, #059669, #34d399);
+}
+
+.growth-chart circle {
+  stroke: #059669;
+}
+
+.growth-chart stop:first-child {
+  stop-color: #059669;
+}
+
+.growth-chart stop:last-child {
+  stop-color: #10b981;
+}
+
+.app-shell {
+  transition: grid-template-columns .22s ease;
+}
+
+.sidebar {
+  transition: padding .22s ease, width .22s ease;
+}
+
+.sidebar-head {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  min-height: 36px;
+  padding: 0 6px;
+}
+
+.sidebar-head .app-logo {
+  min-width: 0;
+  padding: 0;
+}
+
+.sidebar-head .app-logo > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-collapse-toggle {
+  align-items: center;
+  background: #15251f;
+  border: 1px solid #29483d;
+  border-radius: 9px;
+  color: #7ee7bf;
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 22px;
+  height: 34px;
+  justify-content: center;
+  padding: 0;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  width: 34px;
+}
+
+.sidebar-collapse-toggle:hover {
+  background: #1b3a30;
+  border-color: #3e6c5c;
+}
+
+.sidebar nav {
+  margin-top: 28px;
+}
+
+.app-shell.menu-collapsed {
+  grid-template-columns: 72px minmax(0, 1fr);
+}
+
+.menu-collapsed .sidebar {
+  padding: 22px 10px;
+}
+
+.menu-collapsed .sidebar-head {
+  justify-content: center;
+  padding: 0;
+}
+
+.menu-collapsed .app-logo {
+  display: none;
+}
+
+.menu-collapsed .sidebar nav button {
+  display: flex;
+  font-size: 0;
+  justify-content: center;
+  padding: 12px;
+}
+
+.menu-collapsed .sidebar nav button > span {
+  font-size: 17px;
+}
+
+.menu-collapsed .sidebar nav button small,
+.menu-collapsed .sidebar-card,
+.menu-collapsed .profile div,
+.menu-collapsed .signout-button {
+  display: none;
+}
+
+.menu-collapsed .profile {
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (min-width: 621px) and (max-width: 1120px) {
+  .app-shell:not(.menu-collapsed) {
+    grid-template-columns: 244px minmax(0, 1fr);
+  }
+
+  .app-shell:not(.menu-collapsed) .sidebar {
+    padding: 26px 18px 22px;
+  }
+
+  .app-shell:not(.menu-collapsed) .app-logo {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .app-shell:not(.menu-collapsed) .app-logo > span:last-child {
+    font-size: 17px;
+  }
+
+  .app-shell:not(.menu-collapsed) .sidebar nav button {
+    display: grid;
+    font-size: 12px;
+    justify-content: initial;
+    padding: 12px 13px;
+  }
+
+  .app-shell:not(.menu-collapsed) .sidebar nav button > span {
+    font-size: 17px;
+  }
+
+  .app-shell:not(.menu-collapsed) .sidebar-card {
+    display: block;
+  }
+
+  .app-shell:not(.menu-collapsed) .profile {
+    display: grid;
+  }
+
+  .app-shell:not(.menu-collapsed) .profile div {
+    display: block;
+  }
+
+  .app-shell:not(.menu-collapsed) .signout-button {
+    display: flex;
+  }
+}
+
+@media (max-width: 620px) {
+  .sidebar-head {
+    display: none;
+  }
+
+  .sidebar nav {
+    margin-top: 0;
+  }
+
+  .app-shell.menu-collapsed {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell,
+  .sidebar,
+  .sidebar-collapse-toggle {
+    transition: none;
+  }
+}
