@@ -8,36 +8,6 @@
   display: none !important;
 }
 
-.brand-logo-frame {
-  aspect-ratio: 1164 / 570;
-  background: #fff;
-  display: block;
-  overflow: hidden;
-  position: relative;
-}
-
-.brand-logo-frame img {
-  display: block;
-  height: 100%;
-  object-fit: contain;
-  position: static;
-  width: 100%;
-}
-
-.auth-brand {
-  justify-content: center;
-}
-
-.auth-brand-logo {
-  width: min(235px, 78%);
-}
-
-.sidebar-brand-logo {
-  border-radius: 7px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
-  width: 145px;
-}
-
 .auth-card > .auth-security:last-child {
   display: none;
 }
@@ -115,7 +85,7 @@
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  min-height: 66px;
+  min-height: 36px;
   padding: 0 6px;
 }
 
@@ -213,6 +183,10 @@
     justify-content: flex-start;
   }
 
+  .app-shell:not(.menu-collapsed) .app-logo > span:last-child {
+    font-size: 17px;
+  }
+
   .app-shell:not(.menu-collapsed) .sidebar nav button {
     display: grid;
     font-size: 12px;
@@ -252,12 +226,6 @@
 
   .app-shell.menu-collapsed {
     display: block;
-  }
-}
-
-@media (max-width: 360px) {
-  .auth-brand-logo {
-    width: 200px;
   }
 }
 

@@ -1,31 +1,7 @@
 (() => {
   const storageKey = "greens-journal-menu-collapsed";
-  const logoSource = "/greens-journal/assets/greens-journal-logo-fitted.jpg";
-
-  function createLogoFrame(className) {
-    const frame = document.createElement("span");
-    frame.className = `brand-logo-frame ${className}`;
-    const image = document.createElement("img");
-    image.alt = "";
-    image.decoding = "async";
-    image.src = logoSource;
-    frame.appendChild(image);
-    return frame;
-  }
-
-  function installBrandLogos() {
-    document.querySelectorAll(".auth-brand:not([data-custom-logo])").forEach((brand) => {
-      brand.dataset.customLogo = "true";
-      brand.replaceChildren(createLogoFrame("auth-brand-logo"));
-    });
-    document.querySelectorAll(".app-logo:not([data-custom-logo])").forEach((brand) => {
-      brand.dataset.customLogo = "true";
-      brand.replaceChildren(createLogoFrame("sidebar-brand-logo"));
-    });
-  }
 
   function initializeMenu() {
-    installBrandLogos();
     const shell = document.querySelector(".app-shell");
     const sidebar = document.querySelector(".sidebar");
     const appLogo = sidebar?.querySelector(".app-logo");
@@ -71,7 +47,4 @@
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
   }
-
-  const brandObserver = new MutationObserver(installBrandLogos);
-  brandObserver.observe(document.documentElement, { childList: true, subtree: true });
 })();
