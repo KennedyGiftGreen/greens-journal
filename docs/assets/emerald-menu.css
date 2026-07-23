@@ -52,6 +52,44 @@
   color: #6ee7b7;
 }
 
+.sidebar nav button > span {
+  background: rgba(255, 255, 255, .035);
+  border: 1px solid rgba(255, 255, 255, .055);
+  border-radius: 8px;
+  height: 30px;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+  width: 30px;
+}
+
+.sidebar nav button {
+  gap: 10px;
+  grid-template-columns: 30px 1fr auto;
+}
+
+.sidebar nav button > span svg {
+  fill: none;
+  height: 19px;
+  overflow: visible;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.65;
+  width: 19px;
+}
+
+.sidebar nav button:hover:not(:disabled) > span {
+  background: rgba(52, 211, 153, .09);
+  border-color: rgba(110, 231, 183, .18);
+  color: #a7f3d0;
+  transform: translateY(-1px);
+}
+
+.sidebar nav button.active > span {
+  background: rgba(52, 211, 153, .13);
+  border-color: rgba(110, 231, 183, .26);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 5px 14px rgba(0, 0, 0, .14);
+}
+
 .sidebar nav button:hover:not(:disabled) {
   background: #12362c;
 }
@@ -152,7 +190,7 @@
 }
 
 .menu-collapsed .sidebar nav button > span {
-  font-size: 17px;
+  font-size: 0;
 }
 
 .menu-collapsed .sidebar nav button small,
@@ -195,7 +233,7 @@
   }
 
   .app-shell:not(.menu-collapsed) .sidebar nav button > span {
-    font-size: 17px;
+    font-size: 0;
   }
 
   .app-shell:not(.menu-collapsed) .sidebar-card {
@@ -222,6 +260,18 @@
 
   .sidebar nav {
     margin-top: 0;
+  }
+
+  .sidebar nav button > span {
+    background: transparent;
+    border-color: transparent;
+    height: 32px;
+    width: 32px;
+  }
+
+  .sidebar nav button.active > span {
+    background: rgba(52, 211, 153, .14);
+    border-color: rgba(110, 231, 183, .2);
   }
 
   .app-shell.menu-collapsed {
