@@ -1,6 +1,6 @@
 (() => {
   const storageKey = "greens-journal-menu-collapsed";
-  const logoSource = "/greens-journal/assets/greens-journal-logo.jpeg";
+  const logoSource = "/greens-journal/assets/greens-journal-logo-fitted.jpg";
 
   function createLogoFrame(className) {
     const frame = document.createElement("span");

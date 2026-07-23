@@ -9,7 +9,7 @@
 }
 
 .brand-logo-frame {
-  aspect-ratio: 1064 / 470;
+  aspect-ratio: 1164 / 570;
   background: #fff;
   display: block;
   overflow: hidden;
@@ -17,12 +17,11 @@
 }
 
 .brand-logo-frame img {
-  height: auto;
-  left: -22.37%;
-  max-width: none;
-  position: absolute;
-  top: -51.69%;
-  width: 144.36%;
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  position: static;
+  width: 100%;
 }
 
 .auth-brand {
