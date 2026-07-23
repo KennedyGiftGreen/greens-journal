@@ -1,5 +1,9 @@
 (() => {
   const storageKey = "greens-journal-menu-collapsed";
+  const themeStorageKey = "greens-journal-theme";
+  const trashIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.75 7.25h14.5M9 7.25V4.8h6v2.45M7 7.25l.7 12h8.6l.7-12M10 10.75v5M14 10.75v5"/></svg>';
+  const sunIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.75"/><path d="M12 2.75v2M12 19.25v2M21.25 12h-2M4.75 12h-2M18.55 5.45l-1.4 1.4M6.85 17.15l-1.4 1.4M18.55 18.55l-1.4-1.4M6.85 6.85l-1.4-1.4"/></svg>';
+  const moonIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z"/></svg>';
   const icons = {
     calendar: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 3.75v3M16.5 3.75v3M4.25 9h15.5"/><rect x="4.25" y="5.25" width="15.5" height="15" rx="3"/><path d="M8 12.5h.01M12 12.5h.01M16 12.5h.01M8 16.5h.01M12 16.5h.01M16 16.5h.01"/></svg>',
     "trade log": '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.25" y="3.75" width="15.5" height="16.5" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
@@ -19,6 +23,52 @@
       }
     });
   }
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    window.localStorage.setItem(themeStorageKey, theme);
+    document.querySelectorAll(".theme-toggle").forEach((button) => {
+      const isDark = theme === "dark";
+      button.innerHTML = isDark ? sunIcon : moonIcon;
+      button.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+      button.setAttribute("title", isDark ? "Light mode" : "Dark mode");
+    });
+  }
+
+  function initializeTheme() {
+    const savedTheme = window.localStorage.getItem(themeStorageKey);
+    const preferredTheme = window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    setTheme(savedTheme === "dark" || savedTheme === "light" ? savedTheme : preferredTheme);
+  }
+
+  function installInterfaceEnhancements() {
+    const topbar = document.querySelector(".topbar");
+    const topbarActions = topbar?.querySelector(".topbar-actions");
+    const pageTitle = topbar?.querySelector("h1")?.textContent?.trim().toLowerCase() ?? "";
+    document.body.classList.toggle("calendar-view", pageTitle.includes("calendar"));
+
+    if (topbarActions && !topbarActions.querySelector(".theme-toggle")) {
+      const toggle = document.createElement("button");
+      toggle.className = "theme-toggle";
+      toggle.type = "button";
+      toggle.addEventListener("click", () => {
+        setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+      });
+      topbarActions.insertBefore(toggle, topbarActions.firstChild);
+      setTheme(document.documentElement.dataset.theme || "light");
+    }
+
+    document.querySelectorAll('button[aria-label^="Delete "]').forEach((button) => {
+      if (!button.dataset.premiumDelete) {
+        button.dataset.premiumDelete = "true";
+        button.classList.add("premium-delete");
+        button.innerHTML = trashIcon;
+      }
+    });
+  }
+
+  initializeTheme();
 
   function initializeMenu() {
     const shell = document.querySelector(".app-shell");
@@ -68,4 +118,8 @@
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
   }
+
+  installInterfaceEnhancements();
+  const interfaceObserver = new MutationObserver(installInterfaceEnhancements);
+  interfaceObserver.observe(document.documentElement, { childList: true, characterData: true, subtree: true });
 })();

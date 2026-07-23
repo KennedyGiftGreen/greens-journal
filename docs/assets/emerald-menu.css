@@ -2,6 +2,20 @@
   --violet: #059669;
   --violet-soft: #d1fae5;
   --lime: #6ee7b7;
+  --ios-radius: 16px;
+  --ios-shadow: 0 8px 28px rgba(15, 23, 42, .07);
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .logo-mark {
@@ -32,6 +46,98 @@
 .auth-submit,
 .log-button {
   box-shadow: 0 9px 20px rgba(5, 150, 105, .22);
+}
+
+.auth-card,
+.metric-card,
+.calendar-card,
+.day-panel,
+.trade-table,
+.analytics-toolbar,
+.analytics-card,
+.capital-overview,
+.capital-history,
+.balance-history {
+  border-radius: var(--ios-radius);
+  box-shadow: var(--ios-shadow);
+}
+
+.auth-card,
+.trade-modal,
+.capital-modal,
+.chart-lightbox section {
+  border-radius: 20px;
+}
+
+.topbar {
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
+  backdrop-filter: saturate(180%) blur(22px);
+}
+
+.calendar-view .export-button {
+  display: none !important;
+}
+
+.theme-toggle {
+  align-items: center;
+  background: rgba(255, 255, 255, .82);
+  border: 1px solid rgba(148, 163, 184, .28);
+  border-radius: 50% !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, .08);
+  color: #334155;
+  display: flex;
+  height: 38px;
+  justify-content: center;
+  padding: 0 !important;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+  width: 38px;
+}
+
+.theme-toggle:hover {
+  background: #fff;
+  color: #059669;
+  transform: translateY(-1px);
+}
+
+.theme-toggle svg,
+.premium-delete svg {
+  fill: none;
+  height: 18px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+  width: 18px;
+}
+
+.premium-delete {
+  align-items: center !important;
+  background: rgba(255, 59, 48, .08) !important;
+  border: 1px solid rgba(255, 59, 48, .12) !important;
+  border-radius: 9px !important;
+  color: #ff3b30 !important;
+  display: inline-flex !important;
+  height: 32px !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease !important;
+  width: 32px !important;
+}
+
+.premium-delete:hover {
+  background: rgba(255, 59, 48, .14) !important;
+  border-color: rgba(255, 59, 48, .22) !important;
+  transform: translateY(-1px);
+}
+
+.row-actions button,
+.month-controls button,
+.export-button,
+.log-button,
+.capital-overview header button,
+.balance-banner > button,
+.balance-history header button {
+  border-radius: 10px;
 }
 
 .auth-form input:focus,
@@ -108,6 +214,126 @@
 
 .growth-chart stop:last-child {
   stop-color: #10b981;
+}
+
+html[data-theme="dark"] {
+  --bg: #080d0b;
+  --card: #111916;
+  --ink: #f4f7f5;
+  --muted: #8b9892;
+  --line: #24312c;
+  --sidebar: #070c0a;
+  --violet-soft: #10392c;
+  --green-soft: #0d2c22;
+  --red-soft: #351718;
+  --ios-shadow: 0 10px 34px rgba(0, 0, 0, .24);
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .workspace,
+html[data-theme="dark"] .topbar {
+  background-color: rgba(8, 13, 11, .88);
+}
+
+html[data-theme="dark"] .auth-card,
+html[data-theme="dark"] .metric-card,
+html[data-theme="dark"] .calendar-card,
+html[data-theme="dark"] .day-panel,
+html[data-theme="dark"] .trade-table,
+html[data-theme="dark"] .trade-table-row,
+html[data-theme="dark"] .analytics-toolbar,
+html[data-theme="dark"] .analytics-card,
+html[data-theme="dark"] .capital-overview,
+html[data-theme="dark"] .capital-history,
+html[data-theme="dark"] .balance-history,
+html[data-theme="dark"] .trade-modal,
+html[data-theme="dark"] .capital-modal {
+  background: #111916;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .calendar-toolbar,
+html[data-theme="dark"] .log-toolbar,
+html[data-theme="dark"] .trade-table-head,
+html[data-theme="dark"] .form-section,
+html[data-theme="dark"] .capital-equation span,
+html[data-theme="dark"] .auth-form input,
+html[data-theme="dark"] .log-tools input,
+html[data-theme="dark"] .trade-modal input,
+html[data-theme="dark"] .trade-modal select,
+html[data-theme="dark"] .trade-modal textarea,
+html[data-theme="dark"] .capital-modal input,
+html[data-theme="dark"] .capital-modal select {
+  background: #0d1512;
+  border-color: #26352f;
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .day-cell {
+  background: #0f1714;
+  border-color: #26352f;
+}
+
+html[data-theme="dark"] .day-cell.outside {
+  background: #0a100e;
+}
+
+html[data-theme="dark"] .day-cell.selected {
+  box-shadow: inset 0 0 0 2px #10b981;
+}
+
+html[data-theme="dark"] .week-total,
+html[data-theme="dark"] .weekday-row span,
+html[data-theme="dark"] .month-controls button,
+html[data-theme="dark"] .export-button,
+html[data-theme="dark"] .row-actions button:not(.premium-delete),
+html[data-theme="dark"] .balance-history span button {
+  background: #15201c;
+  border-color: #2a3933;
+  color: #c5d0cb;
+}
+
+html[data-theme="dark"] .theme-toggle {
+  background: rgba(24, 35, 30, .9);
+  border-color: #31433b;
+  color: #f5f7f6;
+}
+
+html[data-theme="dark"] .metric-label,
+html[data-theme="dark"] .metric-card small,
+html[data-theme="dark"] .topbar p,
+html[data-theme="dark"] .trade-table-head,
+html[data-theme="dark"] .analytics-empty,
+html[data-theme="dark"] .capital-disclaimer {
+  color: #89968f;
+}
+
+html[data-theme="dark"] .trade-table-row,
+html[data-theme="dark"] .capital-list > div,
+html[data-theme="dark"] .balance-history > div > span,
+html[data-theme="dark"] .analytics-card > header,
+html[data-theme="dark"] .capital-overview > header,
+html[data-theme="dark"] .capital-history > header,
+html[data-theme="dark"] .balance-history > header {
+  border-color: #22302a;
+}
+
+html[data-theme="dark"] .grade-bars i,
+html[data-theme="dark"] .breakdown-track,
+html[data-theme="dark"] .chart-preview {
+  background: #1b2823;
+}
+
+html[data-theme="dark"] .modal-backdrop {
+  background: rgba(0, 0, 0, .72);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .app-shell {
