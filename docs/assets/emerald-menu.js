@@ -1,7 +1,31 @@
 (() => {
   const storageKey = "greens-journal-menu-collapsed";
+  const logoSource = "/greens-journal/assets/greens-journal-logo.jpeg";
+
+  function createLogoFrame(className) {
+    const frame = document.createElement("span");
+    frame.className = `brand-logo-frame ${className}`;
+    const image = document.createElement("img");
+    image.alt = "";
+    image.decoding = "async";
+    image.src = logoSource;
+    frame.appendChild(image);
+    return frame;
+  }
+
+  function installBrandLogos() {
+    document.querySelectorAll(".auth-brand:not([data-custom-logo])").forEach((brand) => {
+      brand.dataset.customLogo = "true";
+      brand.replaceChildren(createLogoFrame("auth-brand-logo"));
+    });
+    document.querySelectorAll(".app-logo:not([data-custom-logo])").forEach((brand) => {
+      brand.dataset.customLogo = "true";
+      brand.replaceChildren(createLogoFrame("sidebar-brand-logo"));
+    });
+  }
 
   function initializeMenu() {
+    installBrandLogos();
     const shell = document.querySelector(".app-shell");
     const sidebar = document.querySelector(".sidebar");
     const appLogo = sidebar?.querySelector(".app-logo");
@@ -9,8 +33,6 @@
     if (!shell || !sidebar || sidebar.querySelector(".sidebar-collapse-toggle")) {
       return Boolean(shell && sidebar);
     }
-
-    document.querySelectorAll(".logo-mark").forEach((logo) => logo.remove());
 
     const header = document.createElement("div");
     header.className = "sidebar-head";
@@ -49,4 +71,7 @@
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
   }
+
+  const brandObserver = new MutationObserver(installBrandLogos);
+  brandObserver.observe(document.documentElement, { childList: true, subtree: true });
 })();
