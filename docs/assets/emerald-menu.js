@@ -120,6 +120,14 @@
   }
 
   installInterfaceEnhancements();
-  const interfaceObserver = new MutationObserver(installInterfaceEnhancements);
+  let interfaceUpdateQueued = false;
+  const interfaceObserver = new MutationObserver(() => {
+    if (interfaceUpdateQueued) return;
+    interfaceUpdateQueued = true;
+    window.requestAnimationFrame(() => {
+      interfaceUpdateQueued = false;
+      installInterfaceEnhancements();
+    });
+  });
   interfaceObserver.observe(document.documentElement, { childList: true, characterData: true, subtree: true });
 })();

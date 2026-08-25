@@ -21,6 +21,8 @@
   let calendarSummaries = new Map();
   let calendarLoading = false;
   let calendarUserId = "";
+  let entriesLoadedAt = 0;
+  let authListenerInstalled = false;
 
   const client = () => window.greensJournalSupabase;
 
@@ -73,20 +75,21 @@
   async function ensureCalendarSummaries() {
     const title = document.querySelector(".topbar h1")?.textContent?.toLowerCase() || "";
     if (!title.includes("calendar") || !client() || calendarLoading) return;
+    if (calendarUserId) {
+      markCalendarDays();
+      return;
+    }
     calendarLoading = true;
     try {
-      const { data: authData } = await client().auth.getUser();
-      if (!authData?.user) return;
-      if (calendarUserId === authData.user.id) {
-        markCalendarDays();
-        return;
-      }
+      const { data: authData } = await client().auth.getSession();
+      const user = authData?.session?.user;
+      if (!user) return;
       const { data, error } = await client()
         .from("daily_analyses")
         .select("id, analysis_date, title, market_bias, notes")
         .order("analysis_date", { ascending: false });
       if (error) throw error;
-      calendarUserId = authData.user.id;
+      calendarUserId = user.id;
       setCalendarSummaries(data || []);
     } catch (error) {
       console.error("Unable to show daily analysis on the calendar.", error);
@@ -162,13 +165,17 @@
     currentView = VIEW;
     document.querySelectorAll(".sidebar nav button").forEach((button) => button.classList.toggle("active", button.classList.contains("daily-analysis-nav-button")));
     renderPage();
-    await loadEntries();
+    await loadEntries(false);
     if (openForm && currentView === VIEW) openFormModal();
   }
 
-  async function loadEntries() {
+  async function loadEntries(force = false) {
     const supabase = client();
     if (!supabase || loading) return;
+    if (!force && entriesLoadedAt && Date.now() - entriesLoadedAt < 120000) {
+      renderPage();
+      return;
+    }
     loading = true;
     renderPage();
     try {
@@ -182,6 +189,7 @@
       setCalendarSummaries(rows);
       if (!rows.length) {
         entries = [];
+        entriesLoadedAt = Date.now();
         return;
       }
       const { data: chartRows, error: chartError } = await supabase
@@ -200,6 +208,7 @@
         ...row,
         charts: hydratedCharts.filter((chart) => chart.analysis_id === row.id),
       }));
+      entriesLoadedAt = Date.now();
     } catch (error) {
       showToast(error?.message || "Unable to load daily analysis.", true);
     } finally {
@@ -248,7 +257,7 @@
     page.querySelector(".add-analysis-button")?.addEventListener("click", () => openFormModal());
     page.querySelector(".analysis-hero button")?.addEventListener("click", () => openFormModal());
     page.querySelector(".analysis-empty button")?.addEventListener("click", () => filter ? setFilter("") : openFormModal());
-    page.querySelector(".analysis-refresh")?.addEventListener("click", loadEntries);
+    page.querySelector(".analysis-refresh")?.addEventListener("click", () => loadEntries(true));
     page.querySelector(".analysis-month-filter")?.addEventListener("change", (event) => setFilter(event.target.value));
     page.querySelectorAll("[data-edit-analysis]").forEach((button) => button.addEventListener("click", () => openFormModal(entries.find((entry) => String(entry.id) === button.dataset.editAnalysis))));
     page.querySelectorAll("[data-delete-analysis]").forEach((button) => button.addEventListener("click", () => deleteEntry(button.dataset.deleteAnalysis)));
@@ -373,7 +382,7 @@
         }
         close();
         showToast(entry ? "Daily analysis updated" : "Daily analysis saved");
-        await loadEntries();
+        await loadEntries(true);
       } catch (error) {
         const message = error?.code === "23505"
           ? "A daily analysis already exists for this date. Open that entry and select Edit to add more charts."
@@ -426,14 +435,34 @@
     window.setTimeout(() => toast.remove(), 3500);
   }
 
-  const observer = new MutationObserver(() => {
+  function syncInterface() {
     installNavigation();
     installCalendarAction();
+    if (!authListenerInstalled && client()) {
+      authListenerInstalled = true;
+      client().auth.onAuthStateChange((_event, session) => {
+        const nextUserId = session?.user?.id || "";
+        if (nextUserId !== calendarUserId) {
+          calendarUserId = "";
+          calendarSummaries = new Map();
+          entries = [];
+          entriesLoadedAt = 0;
+        }
+      });
+    }
     ensureCalendarSummaries();
     markCalendarDays();
     if (currentView === VIEW && !document.querySelector(".daily-analysis-page")) renderPage();
+  }
+  let observerQueued = false;
+  const observer = new MutationObserver(() => {
+    if (observerQueued) return;
+    observerQueued = true;
+    window.requestAnimationFrame(() => {
+      observerQueued = false;
+      syncInterface();
+    });
   });
   observer.observe(document.documentElement, { childList: true, characterData: true, subtree: true });
-  installNavigation();
-  installCalendarAction();
+  syncInterface();
 })();

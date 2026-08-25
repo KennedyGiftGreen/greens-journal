@@ -20,6 +20,8 @@
   let trades = [];
   let latestBalance = null;
   let loading = false;
+  let goalsLoadedAt = 0;
+  let goalsCacheUserId = "";
 
   const client = () => window.greensJournalSupabase;
 
@@ -68,9 +70,22 @@
     return true;
   }
 
-  async function loadGoalsData() {
+  async function loadGoalsData(force = false) {
     const supabase = client();
     if (!supabase || loading) return;
+    const { data: authData } = await supabase.auth.getSession();
+    const userId = authData?.session?.user?.id || "";
+    if (!userId) return;
+    if (goalsCacheUserId && goalsCacheUserId !== userId) {
+      goals = [];
+      trades = [];
+      latestBalance = null;
+      goalsLoadedAt = 0;
+    }
+    if (!force && goalsLoadedAt && Date.now() - goalsLoadedAt < 120000) {
+      renderGoalsPage();
+      return;
+    }
     loading = true;
     renderGoalsPage();
     try {
@@ -85,6 +100,8 @@
       goals = goalResult.data || [];
       trades = tradeResult.data || [];
       latestBalance = balanceResult.data?.[0] || null;
+      goalsCacheUserId = userId;
+      goalsLoadedAt = Date.now();
     } catch (error) {
       showMessage(error?.message || "Unable to load goals.", true);
     } finally {
@@ -162,7 +179,7 @@
 
     page.querySelector(".add-goal-button")?.addEventListener("click", () => openGoalForm());
     page.querySelector(".goal-empty button")?.addEventListener("click", () => openGoalForm());
-    page.querySelector(".goal-refresh")?.addEventListener("click", loadGoalsData);
+    page.querySelector(".goal-refresh")?.addEventListener("click", () => loadGoalsData(true));
     page.querySelector(".goals-theme-toggle")?.addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
     page.querySelectorAll("[data-edit-goal]").forEach((button) => button.addEventListener("click", () => openGoalForm(goals.find((goal) => String(goal.id) === button.dataset.editGoal))));
     page.querySelectorAll("[data-delete-goal]").forEach((button) => button.addEventListener("click", () => deleteGoal(button.dataset.deleteGoal)));
@@ -245,7 +262,7 @@
       }
       close();
       showMessage(goal ? "Goal updated" : "Goal created");
-      await loadGoalsData();
+      await loadGoalsData(true);
     });
   }
 
@@ -271,13 +288,22 @@
     currentView = GOALS_VIEW;
     document.querySelectorAll('.sidebar nav button').forEach((button) => button.classList.toggle("active", button.classList.contains("goals-nav-button")));
     renderGoalsPage();
-    loadGoalsData();
+    loadGoalsData(false);
   }
 
-  const observer = new MutationObserver(() => {
+  function syncGoalsInterface() {
     installNavigation();
     if (currentView === GOALS_VIEW && !document.querySelector(".goals-page")) renderGoalsPage();
+  }
+  let goalsObserverQueued = false;
+  const observer = new MutationObserver(() => {
+    if (goalsObserverQueued) return;
+    goalsObserverQueued = true;
+    window.requestAnimationFrame(() => {
+      goalsObserverQueued = false;
+      syncGoalsInterface();
+    });
   });
   observer.observe(document.documentElement, { childList: true, subtree: true });
-  installNavigation();
+  syncGoalsInterface();
 })();
