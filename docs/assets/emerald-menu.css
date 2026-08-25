@@ -512,3 +512,544 @@ html[data-theme="dark"] .modal-backdrop {
     transition: none;
   }
 }
+
+/* Dark mode clarity pass --------------------------------------------------- */
+html[data-theme="dark"] {
+  --bg: #08100d;
+  --card: #101a16;
+  --ink: #f3f8f5;
+  --muted: #a5b4ac;
+  --line: #2a3d34;
+  --sidebar: #060c09;
+  --violet: #10b981;
+  --violet-soft: #12392c;
+  --green: #34d399;
+  --green-soft: #103226;
+  --red: #fb7185;
+  --red-soft: #3a171d;
+  --dark-surface: #101a16;
+  --dark-surface-raised: #15231d;
+  --dark-surface-strong: #1a2b23;
+  --dark-line: #2d4339;
+  --dark-text: #f3f8f5;
+  --dark-text-secondary: #b3c1ba;
+  --dark-text-muted: #8fa198;
+  color-scheme: dark;
+  scrollbar-color: #50675d #08100d;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .workspace {
+  background: #08100d;
+}
+
+html[data-theme="dark"] .topbar {
+  background: rgba(8, 16, 13, .9);
+  border-color: var(--dark-line);
+}
+
+html[data-theme="dark"] .sidebar {
+  background: #060c09;
+  border-right: 1px solid #18271f;
+}
+
+html[data-theme="dark"] .sidebar nav button {
+  color: #a5b4ac;
+}
+
+html[data-theme="dark"] .sidebar nav button > span {
+  background: #0f1915;
+  border-color: #26372f;
+  color: #9bada4;
+}
+
+html[data-theme="dark"] .sidebar nav button:hover:not(:disabled) {
+  background: #11271f;
+  color: #f3f8f5;
+}
+
+html[data-theme="dark"] .sidebar nav button.active {
+  background: #0b3b2c;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .sidebar nav button.active > span {
+  background: #12513d;
+  border-color: #237c5f;
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .sidebar-collapse-toggle,
+html[data-theme="dark"] .signout-button {
+  background: #122019;
+  border-color: #2b4438;
+  color: #a7f3d0;
+}
+
+html[data-theme="dark"] .sidebar-collapse-toggle:hover,
+html[data-theme="dark"] .signout-button:hover {
+  background: #183027;
+  border-color: #3b6755;
+  color: #ecfdf5;
+}
+
+html[data-theme="dark"] .metric-card,
+html[data-theme="dark"] .calendar-card,
+html[data-theme="dark"] .day-panel,
+html[data-theme="dark"] .log-card,
+html[data-theme="dark"] .trade-table,
+html[data-theme="dark"] .analytics-toolbar,
+html[data-theme="dark"] .analytics-card,
+html[data-theme="dark"] .capital-overview,
+html[data-theme="dark"] .capital-history,
+html[data-theme="dark"] .balance-history,
+html[data-theme="dark"] .trade-modal,
+html[data-theme="dark"] .capital-modal,
+html[data-theme="dark"] .goal-card,
+html[data-theme="dark"] .analysis-entry,
+html[data-theme="dark"] .analysis-summary article,
+html[data-theme="dark"] .analysis-hero {
+  background: var(--dark-surface);
+  border-color: var(--dark-line);
+  color: var(--dark-text);
+}
+
+html[data-theme="dark"] .calendar-toolbar,
+html[data-theme="dark"] .log-toolbar,
+html[data-theme="dark"] .day-panel-head,
+html[data-theme="dark"] .analytics-toolbar,
+html[data-theme="dark"] .capital-overview > header,
+html[data-theme="dark"] .capital-history > header,
+html[data-theme="dark"] .balance-history > header,
+html[data-theme="dark"] .trade-modal > header,
+html[data-theme="dark"] .capital-modal > header {
+  background: var(--dark-surface);
+  border-color: var(--dark-line);
+}
+
+html[data-theme="dark"] .metric-label i {
+  background: var(--dark-surface-raised);
+  color: #8fdcbc;
+}
+
+html[data-theme="dark"] .metric-label,
+html[data-theme="dark"] .metric-card > small,
+html[data-theme="dark"] .topbar p,
+html[data-theme="dark"] .calendar-toolbar p,
+html[data-theme="dark"] .day-panel-head p,
+html[data-theme="dark"] .log-toolbar p,
+html[data-theme="dark"] .trade-modal header p,
+html[data-theme="dark"] .capital-modal header p,
+html[data-theme="dark"] .analytics-empty,
+html[data-theme="dark"] .capital-disclaimer,
+html[data-theme="dark"] .growth-axis,
+html[data-theme="dark"] .day-cell .no-trades,
+html[data-theme="dark"] .day-cell > small,
+html[data-theme="dark"] .week-total > small,
+html[data-theme="dark"] .capital-list small,
+html[data-theme="dark"] .balance-history small,
+html[data-theme="dark"] .breakdown-row small,
+html[data-theme="dark"] .mistake-list small,
+html[data-theme="dark"] .empty-day p,
+html[data-theme="dark"] .empty-log p {
+  color: var(--dark-text-secondary);
+}
+
+html[data-theme="dark"] .month-controls {
+  background: #0c1511;
+  border-color: #344b40;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025);
+}
+
+html[data-theme="dark"] .month-controls button {
+  background: var(--dark-surface-raised);
+  border: 1px solid transparent;
+  color: #d9e5df;
+}
+
+html[data-theme="dark"] .month-controls button:first-child,
+html[data-theme="dark"] .month-controls button:last-child {
+  color: #f2f8f5;
+  font-weight: 750;
+}
+
+html[data-theme="dark"] .month-controls button:hover:not(:disabled) {
+  background: var(--dark-surface-strong);
+  border-color: #3b5a4c;
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .month-controls button:active:not(:disabled) {
+  background: #204032;
+  transform: scale(.96);
+}
+
+html[data-theme="dark"] .weekday-row {
+  background: #0d1713;
+  border-color: var(--dark-line);
+}
+
+html[data-theme="dark"] .weekday-row span,
+html[data-theme="dark"] .weekday-row span:last-child {
+  background: #0d1713;
+  border-color: var(--dark-line);
+  color: #adbbb4;
+}
+
+html[data-theme="dark"] .day-cell {
+  background: #0e1814;
+  border-color: var(--dark-line);
+  color: var(--dark-text);
+}
+
+html[data-theme="dark"] .day-cell:hover:not(:disabled) {
+  background: #14231d;
+}
+
+html[data-theme="dark"] .day-cell.outside {
+  background: #0a110e;
+  color: #70827a;
+}
+
+html[data-theme="dark"] .day-cell.win-day {
+  background: linear-gradient(145deg, #0d231a, #102d21);
+}
+
+html[data-theme="dark"] .day-cell.loss-day {
+  background: linear-gradient(145deg, #241317, #2c171c);
+}
+
+html[data-theme="dark"] .day-cell.selected {
+  background: #13271f;
+  box-shadow: inset 0 0 0 2px #34d399;
+}
+
+html[data-theme="dark"] .day-cell > span,
+html[data-theme="dark"] .day-cell > strong {
+  color: #edf5f1;
+}
+
+html[data-theme="dark"] .day-cell.outside > span,
+html[data-theme="dark"] .day-cell.outside > strong {
+  color: #74867d;
+}
+
+html[data-theme="dark"] .week-total {
+  background: #111e19;
+  border-color: var(--dark-line);
+  color: #d9e5df;
+}
+
+html[data-theme="dark"] .week-total > span {
+  color: #9dafA6;
+}
+
+html[data-theme="dark"] .week-total > strong {
+  color: #dce8e2;
+}
+
+html[data-theme="dark"] .day-total {
+  background: var(--dark-surface-raised);
+  border-color: var(--dark-line);
+  color: var(--dark-text);
+}
+
+html[data-theme="dark"] .day-total span,
+html[data-theme="dark"] .day-total small {
+  color: var(--dark-text-secondary);
+}
+
+html[data-theme="dark"] .day-total strong {
+  color: #f7fbf9;
+}
+
+html[data-theme="dark"] .day-trades article,
+html[data-theme="dark"] .trade-table-row,
+html[data-theme="dark"] .capital-list > div:not(.capital-empty),
+html[data-theme="dark"] .balance-history > div > span,
+html[data-theme="dark"] .mistake-list > div:not(.analytics-empty) {
+  background: transparent;
+  border-color: var(--dark-line);
+}
+
+html[data-theme="dark"] .empty-day > span,
+html[data-theme="dark"] .empty-log > span,
+html[data-theme="dark"] .capital-empty > span {
+  background: #12392c;
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .empty-day button,
+html[data-theme="dark"] .empty-log button,
+html[data-theme="dark"] .capital-empty button {
+  background: #059669;
+  border: 1px solid #10b981;
+  color: #ffffff;
+  box-shadow: 0 8px 22px rgba(5, 150, 105, .2);
+}
+
+html[data-theme="dark"] .empty-day button:hover:not(:disabled),
+html[data-theme="dark"] .empty-log button:hover:not(:disabled),
+html[data-theme="dark"] .capital-empty button:hover:not(:disabled) {
+  background: #047857;
+  border-color: #34d399;
+}
+
+html[data-theme="dark"] .trade-table-head {
+  background: #0d1713;
+  border-color: var(--dark-line);
+  color: #aab9b1;
+}
+
+html[data-theme="dark"] .row-actions button:not(.premium-delete),
+html[data-theme="dark"] .balance-history span button,
+html[data-theme="dark"] .goal-refresh,
+html[data-theme="dark"] .goal-edit,
+html[data-theme="dark"] .analysis-refresh {
+  background: var(--dark-surface-raised);
+  border-color: #344b40;
+  color: #c7d5ce;
+}
+
+html[data-theme="dark"] .row-actions button:not(.premium-delete):hover,
+html[data-theme="dark"] .balance-history span button:hover,
+html[data-theme="dark"] .goal-refresh:hover,
+html[data-theme="dark"] .goal-edit:hover,
+html[data-theme="dark"] .analysis-refresh:hover {
+  background: var(--dark-surface-strong);
+  border-color: #466658;
+  color: #ecfdf5;
+}
+
+html[data-theme="dark"] .premium-delete {
+  background: rgba(251, 113, 133, .1) !important;
+  border-color: rgba(251, 113, 133, .27) !important;
+  color: #fb7185 !important;
+}
+
+html[data-theme="dark"] .premium-delete:hover {
+  background: rgba(251, 113, 133, .18) !important;
+  border-color: rgba(251, 113, 133, .45) !important;
+  color: #fda4af !important;
+}
+
+html[data-theme="dark"] .trade-modal input,
+html[data-theme="dark"] .trade-modal select,
+html[data-theme="dark"] .trade-modal textarea,
+html[data-theme="dark"] .capital-modal input,
+html[data-theme="dark"] .capital-modal select,
+html[data-theme="dark"] .auth-form input,
+html[data-theme="dark"] .log-tools input,
+html[data-theme="dark"] .analysis-list-heading input,
+html[data-theme="dark"] .goal-form input,
+html[data-theme="dark"] .goal-form select,
+html[data-theme="dark"] .goal-form textarea,
+html[data-theme="dark"] .analysis-modal input,
+html[data-theme="dark"] .analysis-modal select,
+html[data-theme="dark"] .analysis-modal textarea {
+  background: #0c1511;
+  border-color: #33493f;
+  color: #f3f8f5;
+  -webkit-text-fill-color: #f3f8f5;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+  color: #778a81;
+  opacity: 1;
+}
+
+html[data-theme="dark"] select option {
+  background: #101a16;
+  color: #f3f8f5;
+}
+
+html[data-theme="dark"] .trade-modal input:focus,
+html[data-theme="dark"] .trade-modal select:focus,
+html[data-theme="dark"] .trade-modal textarea:focus,
+html[data-theme="dark"] .capital-modal input:focus,
+html[data-theme="dark"] .capital-modal select:focus,
+html[data-theme="dark"] .auth-form input:focus,
+html[data-theme="dark"] .log-tools input:focus,
+html[data-theme="dark"] .analysis-list-heading input:focus {
+  background: #0f1d17;
+  border-color: #34d399;
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, .12);
+}
+
+html[data-theme="dark"] .trade-modal > header > button,
+html[data-theme="dark"] .capital-modal > header > button,
+html[data-theme="dark"] .analysis-modal header > button {
+  background: var(--dark-surface-raised);
+  border: 1px solid #33493f;
+  color: #d9e5df;
+}
+
+html[data-theme="dark"] .cancel-button {
+  background: var(--dark-surface-raised);
+  border-color: #344b40;
+  color: #d6e2dc;
+}
+
+html[data-theme="dark"] .rule-check button {
+  background: var(--dark-surface-raised);
+  border-color: #344b40;
+  color: #c6d3cc;
+}
+
+html[data-theme="dark"] .mistake-picker button,
+html[data-theme="dark"] .pending-charts > span,
+html[data-theme="dark"] .chart-strip button,
+html[data-theme="dark"] .chart-strip > span,
+html[data-theme="dark"] .existing-charts article,
+html[data-theme="dark"] .chart-upload {
+  background: var(--dark-surface-raised);
+  border-color: #344b40;
+  color: #cbd8d1;
+}
+
+html[data-theme="dark"] .chart-upload:hover {
+  background: var(--dark-surface-strong);
+  border-color: #34d399;
+}
+
+html[data-theme="dark"] .grade-bars i,
+html[data-theme="dark"] .breakdown-track,
+html[data-theme="dark"] .chart-preview {
+  background: #1a2a23;
+}
+
+html[data-theme="dark"] .ungraded-note {
+  background: #2b2613;
+  color: #e8d889;
+}
+
+html[data-theme="dark"] .growth-zero,
+html[data-theme="dark"] .equity-chart {
+  border-color: var(--dark-line);
+  stroke: #4d665b;
+}
+
+html[data-theme="dark"] .growth-chart circle {
+  fill: #101a16;
+  stroke: #34d399;
+}
+
+html[data-theme="dark"] .balance-banner,
+html[data-theme="dark"] .capital-hero {
+  background: linear-gradient(135deg, #0b1c16, #16372a);
+  border: 1px solid #285542;
+}
+
+html[data-theme="dark"] .calendar-analysis-card {
+  background: linear-gradient(145deg, #0d261d, #102f24);
+  border-color: #2b654e;
+}
+
+html[data-theme="dark"] .calendar-analysis-card header > div {
+  background: #174432;
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .calendar-analysis-card header strong,
+html[data-theme="dark"] .calendar-analysis-card > p {
+  color: #dce8e2;
+}
+
+html[data-theme="dark"] .calendar-analysis-card header b {
+  background: #163c2e;
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .calendar-analysis-indicator {
+  background: #164231;
+  border-color: #2c765a;
+  color: #a7f3d0;
+}
+
+html[data-theme="dark"] .analysis-chart-grid > button,
+html[data-theme="dark"] .analysis-existing-charts article,
+html[data-theme="dark"] .analysis-existing-charts article > button:first-child,
+html[data-theme="dark"] .analysis-pending-files > span,
+html[data-theme="dark"] .analysis-no-chart {
+  background: var(--dark-surface-raised);
+  border-color: #344b40;
+  color: #cbd8d1;
+}
+
+html[data-theme="dark"] .analysis-edit,
+html[data-theme="dark"] .analysis-hero > button {
+  background: #059669;
+  border-color: #10b981;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .analysis-edit:hover,
+html[data-theme="dark"] .analysis-hero > button:hover {
+  background: #047857;
+  border-color: #34d399;
+}
+
+html[data-theme="dark"] .goals-summary article,
+html[data-theme="dark"] .goal-empty,
+html[data-theme="dark"] .analysis-empty {
+  background: var(--dark-surface);
+  border-color: var(--dark-line);
+  color: var(--dark-text);
+}
+
+html[data-theme="dark"] .trade-meta span.short,
+html[data-theme="dark"] .trade-table-row i.short {
+  background: #382814;
+  color: #f6c56f;
+}
+
+html[data-theme="dark"] .auth-heading p,
+html[data-theme="dark"] .auth-form label,
+html[data-theme="dark"] .auth-loading > p,
+html[data-theme="dark"] .auth-footer {
+  color: var(--dark-text-secondary);
+}
+
+html[data-theme="dark"] .auth-link,
+html[data-theme="dark"] .password-field button {
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .analysis-quick-add,
+html[data-theme="dark"] .theme-toggle {
+  background: #122019;
+  border-color: #344b40;
+  color: #e7f0eb;
+}
+
+html[data-theme="dark"] .theme-toggle:hover,
+html[data-theme="dark"] .analysis-quick-add:hover {
+  background: #1b3027;
+  border-color: #466658;
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .error-banner {
+  background: #32171c;
+  border-color: #6a2b36;
+  color: #fda4af;
+}
+
+html[data-theme="dark"] .error-banner button {
+  color: #fda4af;
+}
+
+html[data-theme="dark"] button:disabled {
+  opacity: .52;
+}
+
+html[data-theme="dark"] :where(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid #6ee7b7;
+  outline-offset: 2px;
+}
+
+html[data-theme="dark"] ::selection {
+  background: rgba(52, 211, 153, .34);
+  color: #ffffff;
+}
