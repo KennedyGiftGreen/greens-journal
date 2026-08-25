@@ -18,6 +18,9 @@
   let entries = [];
   let loading = false;
   let filter = "";
+  let calendarSummaries = new Map();
+  let calendarLoading = false;
+  let calendarUserId = "";
 
   const client = () => window.greensJournalSupabase;
 
@@ -67,6 +70,94 @@
     actions.insertBefore(button, logButton || null);
   }
 
+  async function ensureCalendarSummaries() {
+    const title = document.querySelector(".topbar h1")?.textContent?.toLowerCase() || "";
+    if (!title.includes("calendar") || !client() || calendarLoading) return;
+    calendarLoading = true;
+    try {
+      const { data: authData } = await client().auth.getUser();
+      if (!authData?.user) return;
+      if (calendarUserId === authData.user.id) {
+        markCalendarDays();
+        return;
+      }
+      const { data, error } = await client()
+        .from("daily_analyses")
+        .select("id, analysis_date, title, market_bias, notes")
+        .order("analysis_date", { ascending: false });
+      if (error) throw error;
+      calendarUserId = authData.user.id;
+      setCalendarSummaries(data || []);
+    } catch (error) {
+      console.error("Unable to show daily analysis on the calendar.", error);
+    } finally {
+      calendarLoading = false;
+    }
+  }
+
+  function setCalendarSummaries(rows) {
+    calendarSummaries = new Map(rows.map((row) => [row.analysis_date, row]));
+    markCalendarDays();
+  }
+
+  function markCalendarDays() {
+    const monthLabel = document.querySelector(".calendar-toolbar h2")?.textContent?.trim();
+    const cells = Array.from(document.querySelectorAll(".calendar-grid .day-cell"));
+    if (!monthLabel || !cells.length) return;
+    const monthParts = monthLabel.match(/^([A-Za-z]+)\s+(\d{4})$/);
+    if (!monthParts) return;
+    const year = Number(monthParts[2]);
+    const month = new Date(`${monthParts[1]} 1, 2000 12:00:00 UTC`).getUTCMonth();
+    if (!Number.isFinite(year) || Number.isNaN(month)) return;
+    const firstWeekday = new Date(Date.UTC(year, month, 1)).getUTCDay();
+    const firstCellTime = Date.UTC(year, month, 1 - firstWeekday);
+    cells.forEach((cell, index) => {
+      const date = new Date(firstCellTime + index * 86400000).toISOString().slice(0, 10);
+      const summary = calendarSummaries.get(date);
+      cell.dataset.analysisDate = date;
+      cell.classList.toggle("has-daily-analysis", Boolean(summary));
+      let marker = cell.querySelector(":scope > .calendar-analysis-indicator");
+      if (summary && !marker) {
+        marker = document.createElement("div");
+        marker.className = "calendar-analysis-indicator";
+        marker.innerHTML = `${analysisIcon}<span>Analysis</span>`;
+        marker.setAttribute("aria-label", "Daily chart analysis saved");
+        cell.appendChild(marker);
+      } else if (!summary) {
+        marker?.remove();
+      }
+      if (!cell.dataset.analysisClickBound) {
+        cell.dataset.analysisClickBound = "true";
+        cell.addEventListener("click", () => window.setTimeout(renderSelectedCalendarAnalysis, 0));
+      }
+    });
+    renderSelectedCalendarAnalysis();
+  }
+
+  function renderSelectedCalendarAnalysis() {
+    const selected = document.querySelector(".calendar-grid .day-cell.selected");
+    const summary = selected ? calendarSummaries.get(selected.dataset.analysisDate) : null;
+    const dayPanel = document.querySelector(".day-panel");
+    const existing = document.querySelector(".calendar-analysis-card");
+    if (!summary || !dayPanel) {
+      existing?.remove();
+      return;
+    }
+    if (existing?.dataset.analysisDate === summary.analysis_date) return;
+    existing?.remove();
+    const card = document.createElement("article");
+    card.className = "calendar-analysis-card";
+    card.dataset.analysisDate = summary.analysis_date;
+    card.innerHTML = `<header><div>${analysisIcon}</div><span><small>DAILY ANALYSIS</small><strong>${escapeHtml(summary.title || "Daily market review")}</strong></span><b class="${escapeHtml((summary.market_bias || "Neutral").toLowerCase())}">${escapeHtml(summary.market_bias || "Neutral")}</b></header>${summary.notes ? `<p>${escapeHtml(summary.notes)}</p>` : ""}<button type="button">Open charts and notes</button>`;
+    card.querySelector("button")?.addEventListener("click", async () => {
+      await showAnalysis(false);
+      const entry = entries.find((item) => item.id === summary.id);
+      if (entry) openFormModal(entry);
+    });
+    const dayTrades = dayPanel.querySelector(".day-trades");
+    dayPanel.insertBefore(card, dayTrades || null);
+  }
+
   async function showAnalysis(openForm) {
     currentView = VIEW;
     document.querySelectorAll(".sidebar nav button").forEach((button) => button.classList.toggle("active", button.classList.contains("daily-analysis-nav-button")));
@@ -88,6 +179,7 @@
         .order("id", { ascending: false });
       if (analysisError) throw analysisError;
       const rows = analysisRows || [];
+      setCalendarSummaries(rows);
       if (!rows.length) {
         entries = [];
         return;
@@ -308,6 +400,8 @@
     const { error } = await client().from("daily_analyses").delete().eq("id", entry.id);
     if (error) return showToast(error.message, true);
     entries = entries.filter((item) => item.id !== entry.id);
+    calendarSummaries.delete(entry.analysis_date);
+    markCalendarDays();
     showToast("Daily analysis deleted");
     renderPage();
   }
@@ -335,6 +429,8 @@
   const observer = new MutationObserver(() => {
     installNavigation();
     installCalendarAction();
+    ensureCalendarSummaries();
+    markCalendarDays();
     if (currentView === VIEW && !document.querySelector(".daily-analysis-page")) renderPage();
   });
   observer.observe(document.documentElement, { childList: true, characterData: true, subtree: true });
