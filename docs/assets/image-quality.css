@@ -1,0 +1,234 @@
+/* Original-quality chart previews and inspection viewer */
+.chart-preview,
+.analysis-chart-grid > button,
+.analysis-existing-charts article > button:first-child {
+  background: #eef4f1;
+  position: relative;
+}
+
+.chart-preview img,
+.analysis-chart-grid img,
+.analysis-existing-charts img {
+  image-rendering: auto;
+  object-fit: contain !important;
+}
+
+.chart-preview::after,
+.analysis-chart-grid > button::after,
+.analysis-existing-charts article > button:first-child::after {
+  background: rgba(6, 78, 59, .88);
+  border: 1px solid rgba(167, 243, 208, .28);
+  border-radius: 999px;
+  color: #ecfdf5;
+  content: "HD";
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: .08em;
+  padding: 4px 6px;
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  z-index: 2;
+}
+
+.chart-quality-note {
+  color: #059669;
+  display: block;
+  font-size: 8px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.chart-lightbox section.hq-viewer {
+  display: flex;
+  flex-direction: column;
+  max-height: 94vh;
+  max-width: min(1500px, 96vw);
+  overflow: hidden;
+}
+
+.chart-lightbox .hq-viewer-header {
+  align-items: center;
+  border-bottom: 1px solid #29372f;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 14px;
+  min-height: 58px;
+  padding: 9px 12px 9px 16px;
+}
+
+.chart-lightbox .hq-viewer-title {
+  min-width: 0;
+}
+
+.chart-lightbox .hq-viewer-title strong,
+.chart-lightbox .hq-viewer-title small {
+  display: block;
+  max-width: min(440px, 38vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chart-lightbox .hq-viewer-title small {
+  color: #9fb0a7;
+  font-size: 8px;
+  margin-top: 3px;
+}
+
+.hq-viewer-controls {
+  align-items: center;
+  display: flex;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.chart-lightbox .hq-viewer-controls button,
+.chart-lightbox .hq-viewer-controls a {
+  align-items: center;
+  background: #17251f;
+  border: 1px solid #344b40;
+  border-radius: 8px;
+  color: #dce8e2;
+  display: inline-flex;
+  font-size: 9px;
+  font-weight: 750;
+  height: 34px;
+  justify-content: center;
+  min-width: 34px;
+  padding: 0 10px;
+}
+
+.chart-lightbox .hq-viewer-controls button:hover,
+.chart-lightbox .hq-viewer-controls a:hover {
+  background: #20372d;
+  border-color: #4b6c5d;
+  color: #6ee7b7;
+}
+
+.chart-lightbox .hq-viewer-controls .hq-zoom-value {
+  color: #b9c8c0;
+  font-size: 8px;
+  font-variant-numeric: tabular-nums;
+  min-width: 38px;
+  text-align: center;
+}
+
+.chart-lightbox .hq-viewer-controls .hq-close {
+  border-radius: 50%;
+  font-size: 18px;
+  padding: 0;
+}
+
+.hq-image-stage {
+  align-items: flex-start;
+  background:
+    linear-gradient(45deg, rgba(255, 255, 255, .025) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, .025) 75%),
+    linear-gradient(45deg, rgba(255, 255, 255, .025) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, .025) 75%),
+    #09100d;
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-start;
+  min-height: min(72vh, 640px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 14px;
+  scrollbar-color: #50675d #09100d;
+}
+
+.chart-lightbox .hq-image-stage > img {
+  display: block;
+  flex: 0 0 auto;
+  height: auto;
+  image-rendering: auto;
+  margin: auto;
+  max-height: none !important;
+  max-width: none !important;
+  object-fit: initial !important;
+  transform: none !important;
+  width: auto;
+}
+
+html:not([data-theme="dark"]) .chart-lightbox section.hq-viewer {
+  background: #ffffff;
+}
+
+html:not([data-theme="dark"]) .chart-lightbox .hq-viewer-header {
+  border-color: #e2e8e5;
+  color: #102019;
+}
+
+html:not([data-theme="dark"]) .chart-lightbox .hq-viewer-title small {
+  color: #6f7f77;
+}
+
+html:not([data-theme="dark"]) .chart-lightbox .hq-viewer-controls button,
+html:not([data-theme="dark"]) .chart-lightbox .hq-viewer-controls a {
+  background: #f3f7f5;
+  border-color: #d9e4de;
+  color: #294137;
+}
+
+html:not([data-theme="dark"]) .chart-lightbox .hq-viewer-controls .hq-zoom-value {
+  color: #607269;
+}
+
+html:not([data-theme="dark"]) .hq-image-stage {
+  background:
+    linear-gradient(45deg, rgba(15, 23, 42, .025) 25%, transparent 25%, transparent 75%, rgba(15, 23, 42, .025) 75%),
+    linear-gradient(45deg, rgba(15, 23, 42, .025) 25%, transparent 25%, transparent 75%, rgba(15, 23, 42, .025) 75%),
+    #edf2ef;
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
+}
+
+@media (max-width: 720px) {
+  .chart-lightbox {
+    padding: 6px;
+  }
+
+  .chart-lightbox section.hq-viewer {
+    max-height: 96vh;
+    max-width: calc(100vw - 12px);
+  }
+
+  .chart-lightbox .hq-viewer-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .chart-lightbox .hq-viewer-title strong,
+  .chart-lightbox .hq-viewer-title small {
+    max-width: calc(100vw - 42px);
+  }
+
+  .hq-viewer-controls {
+    margin-left: 0;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    width: 100%;
+  }
+
+  .chart-lightbox .hq-viewer-controls button,
+  .chart-lightbox .hq-viewer-controls a {
+    flex: 0 0 auto;
+  }
+
+  .hq-image-stage {
+    min-height: 58vh;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 430px) {
+  .chart-lightbox .hq-viewer-controls .hq-fit,
+  .chart-lightbox .hq-viewer-controls .hq-actual,
+  .chart-lightbox .hq-viewer-controls .hq-open-original {
+    font-size: 8px;
+    padding: 0 8px;
+  }
+}
