@@ -24,6 +24,19 @@
     });
   }
 
+  function installSidebarWordmark(appLogo) {
+    if (!appLogo || appLogo.dataset.customWordmark === "true") return;
+    const image = document.createElement("img");
+    image.className = "sidebar-wordmark";
+    image.src = "/greens-journal/assets/greenxhouse-wordmark.png?v=13";
+    image.alt = "greenxhouse";
+    image.decoding = "async";
+    image.fetchPriority = "high";
+    appLogo.replaceChildren(image);
+    appLogo.dataset.customWordmark = "true";
+    appLogo.setAttribute("aria-label", "greenxhouse");
+  }
+
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
@@ -80,6 +93,7 @@
     }
 
     installPremiumIcons(sidebar);
+    installSidebarWordmark(appLogo);
 
     const header = document.createElement("div");
     header.className = "sidebar-head";

@@ -354,9 +354,23 @@ html[data-theme="dark"] .modal-backdrop {
 }
 
 .sidebar-head .app-logo {
+  align-items: center;
   flex: 1;
+  height: 46px;
+  justify-content: flex-start;
   min-width: 0;
   padding: 0;
+}
+
+.sidebar-wordmark {
+  display: block;
+  height: auto;
+  max-height: 40px;
+  max-width: 126px;
+  object-fit: contain;
+  object-position: left center;
+  width: 126px;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, .16));
 }
 
 .sidebar-head .app-logo > span:last-child {
