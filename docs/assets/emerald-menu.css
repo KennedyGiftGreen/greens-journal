@@ -1067,3 +1067,90 @@ html[data-theme="dark"] ::selection {
   background: rgba(52, 211, 153, .34);
   color: #ffffff;
 }
+
+/* Minimal sidebar footer --------------------------------------------------- */
+.sidebar > .sidebar-card {
+  display: none !important;
+}
+
+.sidebar > .profile {
+  border-top: 1px solid #24372e;
+  display: block;
+  grid-template-columns: none;
+  margin-top: auto;
+  padding: 18px 0 0;
+}
+
+.sidebar > .profile > span,
+.sidebar > .profile > div {
+  display: none !important;
+}
+
+.sidebar > .profile .signout-button {
+  align-items: center;
+  background: #12231c;
+  border: 1px solid #2d493c;
+  border-radius: 12px;
+  color: #c9d8d1;
+  display: flex;
+  font-size: 11px;
+  font-weight: 720;
+  gap: 10px;
+  height: 42px;
+  justify-content: flex-start;
+  padding: 0 13px;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+  width: 100%;
+}
+
+.sidebar > .profile .signout-button svg {
+  fill: none;
+  flex: 0 0 auto;
+  height: 18px;
+  stroke: #6ee7b7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+  width: 18px;
+}
+
+.sidebar > .profile .signout-button:hover {
+  background: #173a2e;
+  border-color: #3e6b58;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.menu-collapsed .sidebar > .profile {
+  display: flex;
+  justify-content: center;
+  padding: 18px 0 0;
+}
+
+.menu-collapsed .sidebar > .profile .signout-button {
+  display: flex !important;
+  height: 42px;
+  justify-content: center;
+  padding: 0;
+  width: 42px;
+}
+
+.menu-collapsed .sidebar > .profile .signout-label {
+  display: none;
+}
+
+@media (min-width: 621px) and (max-width: 1120px) {
+  .app-shell:not(.menu-collapsed) .sidebar > .profile {
+    display: block;
+  }
+
+  .app-shell:not(.menu-collapsed) .sidebar > .profile .signout-button {
+    display: flex;
+  }
+}
+
+@media (max-width: 620px) {
+  .sidebar > .profile {
+    display: none !important;
+  }
+}

@@ -37,6 +37,15 @@
     appLogo.setAttribute("aria-label", "greenxhouse");
   }
 
+  function installSidebarSignOut(sidebar) {
+    const button = sidebar?.querySelector(".profile .signout-button");
+    if (!button || button.dataset.fullSignout === "true") return;
+    button.dataset.fullSignout = "true";
+    button.innerHTML = `${icons["sign out"]}<span class="signout-label">Sign out</span>`;
+    button.setAttribute("aria-label", "Sign out");
+    button.setAttribute("title", "Sign out");
+  }
+
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
@@ -94,6 +103,7 @@
 
     installPremiumIcons(sidebar);
     installSidebarWordmark(appLogo);
+    installSidebarSignOut(sidebar);
 
     const header = document.createElement("div");
     header.className = "sidebar-head";
